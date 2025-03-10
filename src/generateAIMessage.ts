@@ -36,11 +36,11 @@ export async function generateAIMessage(delayMinutes: number): Promise<string> {
         if (response.data.choices && response.data.choices.length > 0) {
             return response.data.choices[0].message.content.trim();
         } else {
-            console.error("❌ OpenAI API Error: No response received.");
+            console.error("OpenAI API Error: No response received.");
             return "We're experiencing a delay in your delivery. Thank you for your patience!";
         }
     } catch (error) {
-        console.error("❌ Error generating AI message:", error);
+        console.error("Error generating AI message:", error);
         return "We're currently facing some traffic delays. We appreciate your understanding!";
     }
 }
