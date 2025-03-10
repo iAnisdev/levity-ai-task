@@ -36,7 +36,14 @@ async function main() {
   await client.workflow.start(freightNotificationWorkflow, {
     taskQueue: "freight-notifications",
     workflowId: `freight-notification-${Date.now()}`,
-    args: ["Dublin", "Galway", 15, true, "sms", { phone: "+3531234567" }],
+    args: ["Tokyo", "Osaka", 15, true, "sms", { phone: "+3531234567" }],
+  });
+
+  // Execute the workflow with different parameters
+  await client.workflow.start(freightNotificationWorkflow, {
+    taskQueue: "freight-notifications",
+    workflowId: `freight-notification-${Date.now()}`,
+    args: ["New York", "Los Angeles", 30, false],
   });
 
   console.log("Freight delay workflow started!");
