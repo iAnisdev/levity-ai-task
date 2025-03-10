@@ -91,6 +91,6 @@ export async function sendSmsNotification(to: string, message: string) {
         });
         console.log(`SMS sent to ${to}`);
     } catch (error) {
-        console.error("Error sending SMS:", error);
+        console.error("Error sending SMS:", (error as any)?.message);
     }
 }
