@@ -5,12 +5,18 @@
   "main": "index.ts",
   "scripts": {
     "start": "ts-node index.ts",
+    "start:temporal-server": "npx temporal server start-dev",
+    "start:temporal-worker": "npx ts-node src/worker.ts",
+    "start:workflow": "npx ts-node temporalio.ts",
     "build": "tsc"
   },
   "author": "Anis",
   "license": "ISC",
   "dependencies": {
     "@sendgrid/mail": "^8.1.4",
+    "@temporalio/client": "^1.11.7",
+    "@temporalio/worker": "^1.11.7",
+    "@temporalio/workflow": "^1.11.7",
     "axios": "^1.8.2",
     "dotenv": "^16.4.7",
     "openai": "^4.86.2",
