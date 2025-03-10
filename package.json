@@ -4,10 +4,11 @@
   "description": "Freight Delay Notification Exercise",
   "main": "index.ts",
   "scripts": {
-    "start": "ts-node index.ts",
-    "start:temporal-server": "npx temporal server start-dev",
-    "start:temporal-worker": "npx ts-node src/worker.ts",
-    "start:workflow": "npx ts-node temporalio.ts",
+    "start": "ts-node -r dotenv/config index.ts",
+    "start:temporal-server": "temporal server start-dev",
+    "start:temporal-worker": "ts-node -r dotenv/config src/worker.ts",
+    "start:workflow": "ts-node -r dotenv/config temporalio.ts",
+    "start:temporal": "export $(grep -v '^#' .env | xargs) && npm run start:temporal-server & sleep 5 && npm run start:temporal-worker & sleep 5 && npm run start:workflow",
     "build": "tsc"
   },
   "author": "Anis",
