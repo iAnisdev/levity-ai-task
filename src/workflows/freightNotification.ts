@@ -25,8 +25,8 @@ export const freightNotificationWorkflow = async (
   destination: string,
   threshold: number,
   notify: boolean,
-  recipientType: string,
-  recipient: Recipient
+  recipientType?: string,
+  recipient?: Recipient
 ) => {
   // Step 1: Fetch traffic delay
   const delay = await fetchTrafficDelay(origin, destination);
@@ -37,13 +37,13 @@ export const freightNotificationWorkflow = async (
     return;
   }
 
-  console.log(`Significant delay detected: ${formatMinutes(delay)} minutes. Generating notification...`);
+  console.log(`Significant delay for ${origin} to ${destination} detected: ${formatMinutes(delay)} minutes. Generating notification...`);
 
   // Step 3: Generate AI delay message
   const message = await generateAIMessage(delay);
 
   // Step 4: Send notification via Email or SMS
-  if (notify) {
+    if (delay > threshold && notify && recipientType && recipient) {
     await sendNotification(recipientType, recipient, `Freight Delay Notification: ${origin} to ${destination}`, message);
     console.log(`Notification sent successfully via ${recipientType}.`);
   } else {
