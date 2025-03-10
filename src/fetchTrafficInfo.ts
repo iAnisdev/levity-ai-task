@@ -44,7 +44,8 @@ export async function fetchTrafficDelay(origin: string, destination: string): Pr
     try {
         // Check if Mapbox API key is set
         if (!MAPBOX_ACCESS_TOKEN) {
-            throw new Error("Mapbox API key is missing.");
+            console.error("Mapbox API key is missing.");
+            return 0;
         }
         // Fetch coordinates for origin and destination
         const start = await getCoordinates(origin);

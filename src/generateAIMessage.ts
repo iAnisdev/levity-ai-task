@@ -10,10 +10,13 @@ const OPENAI_API_URL =  process.env.OPENAI_API_URL
  * @returns {Promise<string>} - A friendly customer notification message.
  */
 export async function generateAIMessage(delayMinutes: number): Promise<string> {
+    //  A fallback message in case of an error
+    const fallbackMessage = "We're currently facing some traffic delays. We appreciate your understanding!";
     try {
         // Check if OpenAI API key and URL are provided
         if (!OPENAI_API_KEY || !OPENAI_API_URL) {
-            throw new Error("OpenAI API key or url is missing.");
+            console.error("OpenAI API key or url is missing.");
+            return fallbackMessage;
         }
 
         // Generate a prompt for the AI model to act as a customer service assistant notifying a customer about a traffic delay with a given delay time.
@@ -42,11 +45,11 @@ export async function generateAIMessage(delayMinutes: number): Promise<string> {
         } else {
             console.error("OpenAI API Error: No response received.");
             // Return a default message if no response is received
-            return "We're experiencing a delay in your delivery. Thank you for your patience!";
+            return fallbackMessage;
         }
     } catch (error) {
         console.error("Error generating AI message:", error);
         // Return a default message if an error occurs
-        return "We're currently facing some traffic delays. We appreciate your understanding!";
+        return fallbackMessage;
     }
 }
